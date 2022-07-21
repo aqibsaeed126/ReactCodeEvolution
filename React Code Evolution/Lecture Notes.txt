@@ -1,0 +1,186 @@
+// ---------------- React Code Evolution ----------------- //
+
+// React Basics
+
+- Open source JS UI Library, Not a framework. created for UI 
+- Rich ecosystem and many libraries like for forms, router, state management
+- created and maintained by Facebook, 150K+ stars on Github. Top on Stackoverflow.
+- Component based architecture. e.g for a page header, body, nav and footer. 
+- Create article component for react, angular or vue. web components.
+- React is declarative , one liner do many things for us. 
+- ask artist to draw portrait of beautiful scenery VS ask child to draw(you need to tell in detail)
+- DOM update handles greatly. integrate react into any of your app.
+- react native for mobile option availble.
+- pre req are html, css, es6, js. must know this, filter,map,reduce, let, const, arrow function, default param, object literal, rest, spread, destruturting
+- path is fundamental -> http -> routing -> redux -> utlities
+- v16.5.2
+
+
+// Install and hello-world Project App
+
+- Install Node, React , VS Code
+- npx create-react-app hello world use command to create React app
+- cd hello-world and npm i , and npm start
+- See on browser , Update App.Js text and see update changes
+- 2 ways to create react app. npx VS npm
+- npx is npm package runner. npx doesnt need you to install locally and then create. 
+
+
+// Folder Structure of basic React Project
+
+- package.json -> packages and dependencies required to run for react app. yarn or npm as package downloader or runner
+- package.lock -> lock the current version of dependencies run last time.
+- gitignore -> files to ignore in commit/push, default are node-modules and other local dev config files etc.
+- node_modules folder -> contains set of dependencies in package.json. usually huge files and size
+- public folder -> mainly contain index.html where main div with id root for rendering react app is there . other things are manifest used for PWA and logos file.
+- src folder -> main source code folder.
+- src->index.js -> contains code render App component inside main div of index.html
+- src-> App.js -> Main Top level Parent React component
+- src->App.css or App.test.js for css and test file
+
+
+// Components in React
+
+- part of UI. are reusable and can be nested
+- We have default App component parent. 
+- can create Header , SideNav, MainContent, Footer.
+- Component Code is having .js or .jsx extension
+- 2 types 1- Stateless Functional  2- Stateful Class
+- Functional Components are just functions returning jsx. and export them and reuse them
+- Class Components defined with ES6 or TS class that return render method and return jsx inside it.
+- App component by defualt is functional component or may be class based depends on react version.
+- FB have 30K + components
+
+// Functional Components
+
+- Just JS functions. Can receive input called props and contain html/jsx
+- Create 1st functional component Greet under component folder. remove code in app.js.
+- just write Hello Aqib. Import component in App.js and use it and see output in browser
+- prefer to write component using arrow function syntax
+- export default alow to import with any name, directly export must use import with same name. our choice
+
+// Class Components
+
+- basically ES6 classes. Also can receive props and return components
+- Class components can maintain private state within class
+- create exact same greet class component named as Welcome.js
+- need React and Component from React
+- 2 steps - class should extend Component + implement render method return jsx
+- import in App.js and use its selector to see class component
+- Diff b/w 2 types of components
+     - FUNCTIONAL                 - CLASS
+        no this                     maintain private data state
+        no state                    stateful components
+        simple syntax               complex syntax
+        stateless                   contains life cycle hook methods to take care of
+
+// Cool new Feature - Hooks
+
+- Introduced in React 16.7.0 alpha
+- comparison b/w function and class components. function components are no more stateless.
+- use react features like state in functional components
+- Hooks contain no breaking changes and are backward compatible
+- First learn class component hassles then see importance of Hooks
+- 
+
+// JSX
+
+- Javascript XML , extension to write html like code.
+- JSX transpiles to Javascript at the end. Make code readbale
+- Create React component with and without JSX.
+- Hello component with JSX , return Hello Aqib
+- Rewrite this component using Method provided by React.
+- React.createElement('div', {id: 'hello'}, React.createElement('h1', null, 'Hello Aqib')) // element name -> properties -> child
+- some keywords are not allowed. like className instead of class in JSX. for -> htmlFor , onclick -> onClick
+
+
+// Props
+
+- Props short for properties. Passing input data to components
+- Make your component dynamic. show name passed instead of hardcode.
+- Update component and pass different inputs and see UI
+- <Hello name='Aqib'/> <Hello name='Rauf'/> and use as props.name in Child component.
+- Add 2nd props name as heroName and show in UI
+- Must enclose all elements in single parent div or fragment or <></>
+- pass html.jsx b/w open and close component tag like <Hello name='Aqib'> <p> This is paragraph </p> </Hello>
+- JSX inside <Hello> and </Hello> will be received in props.children
+- Dynamic html content can be passed via props.children ;)
+- Use props with class component. Welcome component. just change is , access as this.props.name .. no need to pass in . auto accessible
+- props are immutable. props.name = 'ABCD' will create an error in browser.
+
+// State in React
+
+- Class components contains state only. functional are stateless. can useState hook.
+- Props vs STate 
+- Props are immutable , get passed into component , props vs this.props, function param.
+- State managed within component, variable declared in body, useState hook. this.state in class component.
+- create message component. class component.
+- Show message  , Welcome visitor , on click of subscribe button -> show message Thank you for Subscription
+- Now message will be changed based on user action. We will use state here.
+- in Constructor , use super(). and initialize this.state = {};
+- <button onClick={() => this.changeMessage()}>Subscribe</button>
+- this.setState({message: 'Thank you for Subscription'}) update state variable.
+
+// setState 
+
+- Install ES7 React snippets app by dsznajder
+- to understand state , create class component Counter , under component folder. 
+- use shortcut from extension , rce + tab
+- initialize this.state in class constructor , and use it in div along with increment button. 
+- on click of increment, increment the state using setState only..
+- Key Point = what if we dont use setState and update state using this.state.count++.. it will update the count but not update or rerender the UI.
+- Key Point = setState in async call. if you console state immediately after setState line. you will get old data instead of updated.
+- Key Point = Use 2nd param of setState which is callback method. and called only when state is being updated and we will get the new value.
+- setState({}, ()=>{console.log(this.state.count)})
+- Lets say , we do incrementFive method. and call increment in it 5 times. that contains setState code. What will happen ?
+- it will update it to 1 , instead of 5. because React combine multiple setState to single for better peroformance. 
+- solution is to pass setState 1st param as function that contain previous state. 
+- KeyPoint = if you cann multiple setState and update using this.state.count , it will not work correct. hence use prevState to update new state passing 1st param as function in setState. Function contain prevState and props as 2nd argument.
+
+// Destructuring State and Props
+
+- its ES6 feature. Use in react and help you ease receive props.
+- instead of using props.name, props.heroName.. receive them in destructuring. and just use name and heroName throughout the component. 
+- take Greet component as example. 2 ways. 1st is do it in function component param. 2nd is in inside functional component.
+- in class components, do it in render method. you can destructure few which are needed not all. 
+- Similarly you can do destructire your state inside render method as well.
+
+// Event Handling
+
+- Mouse hover, onclick, keyup and down. All are events
+- create function component functionClick. handle click event for button inside it. 
+- React event use camel case. like onClick.  with JSX we use {} instead of "" for handler. 
+- Common mistake , syntax error. buttonClicked() is not right way. like in angular.
+- class component click handle. create Classclick. Similar way. but just call method using this.clickHandler.
+
+// Binding Event Handlers
+
+- Why event binding is required in React. due to JS this behavior.
+- do an example, create class component EventBind.js. add button click handler using clickHandler syntax.
+- initialize state in ctcr, show message state in UI. onClick of button update the state using this.setState. 
+- this.setState give error. because this is undefined here.
+- You need to bind event handler. couple of ways to do it.
+- 1- this.clickHandler.bind(this);
+- 2- use arrow method in render method. onClick={()=> this.clickHandler()} , paranthesis required in this approach
+- above 2 approaches have some peroformance issue. it will bind for alot of elements and set callbacks.
+- 3- best approach recommended by react is , in constructor. it will happen once only = this.clickHandler = this.clickHandler.bind(this);
+- 4- also best approach update clickHandler from regular to arrow function. and remove binding from constructor. it will work too.
+
+// methods as props
+
+- passing method in props from parent to child. and calling parent method from child
+- create Parent class component. maintain state. use rconst for constructor shortcut
+- create CHild functional component. pass props where child component used. and call inside child button jsx onclick.
+- it will work and call parent method and display state value. 
+- what if you want to pass parameters from child to parent component props method. Use onClick method syntax {()=> props.greetHandler('hello)}
+
+// Conditional Rendering 
+
+- Show/hide jsx based ons ome conditions
+- 4 approaches we can do this. 
+- 1- if/else
+- 2- Element variables
+- 3- Ternary operator
+- 4- Short circuit operator 
+
+ // To be Continued .. Practice Above Video and continue . .   .. . .
